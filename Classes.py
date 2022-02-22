@@ -7,6 +7,12 @@ Created on Tue Feb 22 15:56:31 2022
 
 from random import choice
 
+class Game:
+    m_player_list = []
+    
+    def add_player(self, name):
+        self.m_player_list.append(Player(name))
+
 class Mafia:
     m_title = "Mafia"
     m_description = "Kill everyone but mafia to win. Get sneaky. Can move bodies and hide them. Don't let anyone see you."
