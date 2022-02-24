@@ -10,8 +10,36 @@ from random import choice
 class Game:
     m_player_list = []
     
+    def find_player(self, name):
+        for player in self.m_player_list:
+            if name == player.m_name:
+                return player
+        return False
+    
     def add_player(self, name):
-        self.m_player_list.append(Player(name))
+        if self.find_player(name) == False:
+            self.m_player_list.append(Player(name))
+        
+    def remove_player(self, name):
+        if self.find_player(name):
+            self.m_player_list.remove(self.find_player(name))
+            return True
+        else:
+            return False
+    
+    def new(self):
+        self.m_player_list = []
+        
+    def list_all(self):
+        string = ""
+        if len(self.m_player_list)== 0:
+            string+= "No players in queue"
+        for player in self.m_player_list:
+            string+= player.m_name + "\n"
+        return string
+            
+            
+                
 
 class Mafia:
     m_title = "Mafia"
