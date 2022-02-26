@@ -126,3 +126,5 @@ class Game:
             copy_roles.remove(role)
     def player_role(self, name):
         return "Your role is " + self.find_player(name).m_role.m_title + "\nDescription: " + self.find_player(name).m_role.m_description
+    
+game = Game()

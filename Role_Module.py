@@ -7,7 +7,7 @@ Created on Sat Feb 26 11:03:04 2022
 
 class Mafia:
     m_title = "Mafia"
-    m_description = "Kill everyone but mafia to win. Get sneaky. Can move bodies and hide them. Don't let anyone see you."
+    m_description = "Kill everyone but Mafia to win. Can move bodies and hide them. Get sneaky- don't let anyone see you do Mafia stuff."
     m_kill = True
     
 class Villager:
