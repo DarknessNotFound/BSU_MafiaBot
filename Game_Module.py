@@ -4,46 +4,11 @@ Created on Tue Feb 22 15:56:31 2022
 
 @author: Easton Ingram
 """
+            
+from Player_Module import Player
+from Preset_Module import *
 
 from random import choice
-
-class Mafia:
-    m_title = "Mafia"
-    m_description = "Kill everyone but mafia to win. Get sneaky. Can move bodies and hide them. Don't let anyone see you."
-    m_kill = True
-    
-class Villager:
-    m_title = "Villager"
-    m_description ="Try not to die. Vote out all killers at town meetings to win. GLHF!"
-    m_kill = False
-    
-class Player:
-    def __init__(self,name):
-        self.m_name = name
-        
-    m_name = ""
-    m_role = None
-    
-    def assign_role(self, role):
-        """ Assigns a random role from an array and then removes an instance of that role from the list. """
-        self.m_role = choice(role)
-
-class Preset():
-    m_role_list = []
-    m_name = ""
-    
-    def __init__(self, name, role_list):
-        self.m_name = name
-        self.m_role_list = role_list
-    
-    def display(self):
-        string = ""
-        if len(self.m_role_list)== 0:
-            string+= "Empty preset"
-        for role in self.m_role_list:
-            string+= role.m_title + ", "
-        return string
-            
 
 class Game:
     m_player_list = []
@@ -153,4 +118,11 @@ class Game:
             return True
         else:
             return False
-        
+    def assign_random_roles(self):
+        copy_roles = self.m_role_list
+        for player in self.m_player_list:
+            role = choice(copy_roles)
+            player.assign_role(role)
+            copy_roles.remove(role)
+    def player_role(self, name):
+        return "Your role is " + self.find_player(name).m_role.m_title + "\nDescription: " + self.find_player(name).m_role.m_description

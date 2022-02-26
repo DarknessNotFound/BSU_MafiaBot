@@ -12,7 +12,7 @@ from discord.ext import commands
 
 from funcs import *
 
-from Classes import *
+from Game_Module import *
 game = Game()
 
 load_dotenv()
@@ -99,6 +99,14 @@ async def all_join(ctx):
 async def start(ctx):
     await ctx.send(game.fill())
     if game.good_to_go():
+        game.assign_random_roles()
+        
+        # Informs current players of their roles by DMs
+        for member in ctx.guild.members:
+            if game.find_player(member.name):
+                await member.send(game.player_role(member.name))
+        
+        await ctx.send("Random roles assigned")
         await ctx.send("Game started!!!")
     else:
         await ctx.send("Start aborted (like you should have been). More roles than players. Review and try again.")
