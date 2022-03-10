@@ -38,7 +38,7 @@ class Game_Commands(commands.Cog):
                 await ctx.send("Random roles assigned")
                 await ctx.send("Game started!!!")
             else:
-                await ctx.send("Start aborted (like you should have been). More roles than players. Review and try again.")
+                await ctx.send("Start aborted (like you should have been). More roles than players, or only mimics are in the game. Review and try again.")
         else:
             await ctx.send("This isn't the time to use that!")
     

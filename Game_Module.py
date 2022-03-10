@@ -14,10 +14,6 @@ class Game:
     m_player_list = []
     m_role_list = []
     
-    preset1 = Preset("Vanilla", [Mafia(), Mafia()])
-    
-    m_presets = [preset1]
-    
     def find_player(self, name):
         for player in self.m_player_list:
             if name == player.m_name:
@@ -40,6 +36,7 @@ class Game:
     
     def new(self):
         self.m_player_list = []
+        self.m_role_list = []
         
     def list_queue(self):
         string = ""
@@ -51,11 +48,41 @@ class Game:
             
     def add_role(self, role):
         if role == "Mafia":
-            self.m_role_list.append(Mafia())
+            self.m_role_list.append(Mafia)
         elif role == "Villager":
-            self.m_role_list.append(Villager())
+            self.m_role_list.append(Villager)
+            
+        elif role == "Joker":
+            self.m_role_list.append(Joker)
+            
+        elif role == "Kannibal":
+            self.m_role_list.append(Kannibal)
+            
+        elif role == "Judge":
+            self.m_role_list.append(Judge)
+            
+        elif role == "Zombie":
+            self.m_role_list.append(Zombie)
+            
+        elif role == "Sheriff":
+            self.m_role_list.append(Sheriff)
+            
+        elif role == "Mute":
+            self.m_role_list.append(Mute)
+        
+        elif role == "Liar":
+            self.m_role_list.append(Liar)
+            
+        elif role == "Mimic":
+            self.m_role_list.append(Mimic)
+        
+        elif role == "Scooby Doo Villain" or role == "SDV":
+            self.m_role_list.append(Scooby_Doo_Villain)
+            role = "Scooby Doo Villain"
+            
         else:
             return "Role not found"
+        
         return role + " added to role selection"
     
     def find_role(self, title):
@@ -71,6 +98,16 @@ class Game:
         for role in self.m_role_list:
             string+= role.m_title + "\n"
         return string
+    
+    def list_mafia(self, name):
+        mafia_str= ""
+        for player in self.m_player_list:
+            if player.m_role.m_title == "Mafia" and player.m_name != name:
+                if mafia_str != "":
+                    mafia_str += ", "
+                mafia_str += player.m_name
+        return mafia_str
+                
     
     def remove_role(self, title):
         if self.find_role(title):
@@ -114,17 +151,37 @@ class Game:
             return "Empty roles to match player count filled with Villager roles (" + str(difference) +")"
     
     def good_to_go(self):
-        if len(self.m_player_list) == len(self.m_role_list):
+        # Mimics only check. Would break if this was not here and only mimics are in game
+        only_contains_mimics = True
+        for role in self.m_role_list:
+            if role.m_title != "Mimic":
+                only_contains_mimics = False
+                
+        if len(self.m_player_list) == len(self.m_role_list) and only_contains_mimics == False:
             return True
         else:
             return False
+        
     def assign_random_roles(self):
-        copy_roles = self.m_role_list
+        copy_roles = self.m_role_list.copy()
         for player in self.m_player_list:
             role = choice(copy_roles)
             player.assign_role(role)
+            
+            # Mimic role logic
+            while player.m_role.m_title == "Mimic":
+                mimic_copy_roles = self.m_role_list.copy()
+                mimic_copy_roles.remove(Mimic)
+                mimic_role = choice(mimic_copy_roles)
+                player.assign_role(mimic_role)
+                    
             copy_roles.remove(role)
+    
     def player_role(self, name):
-        return "Your role is " + self.find_player(name).m_role.m_title + "\nDescription: " + self.find_player(name).m_role.m_description
+        if self.find_player(name).m_role.m_title == "Mafia":
+            return ("Your role is " + self.find_player(name).m_role.m_title + "\nDescription: " + self.find_player(name).m_role.m_description
+                    + " Mafia Partner(s): " + self.list_mafia(name))
+        else:
+            return "Your role is " + self.find_player(name).m_role.m_title + "\nDescription: " + self.find_player(name).m_role.m_description
     
 game = Game()

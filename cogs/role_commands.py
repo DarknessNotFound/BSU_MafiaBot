@@ -27,13 +27,15 @@ class Role_Commands(commands.Cog):
     async def selection(self, ctx):
         if accessible_channel(ctx):
             await ctx.send(game.list_roles())
-        await ctx.send("This isn't the time to use that!")
+        else: 
+            await ctx.send("This isn't the time to use that!")
 
     @commands.command(name='deselect', help='Shows all roles in current game selection')
     async def deselect(self, ctx, *args):
         if accessible_channel(ctx):
             await ctx.send(game.remove_role(list_to_str(args)))
-        await ctx.send("This isn't the time to use that!")
+        else:
+            await ctx.send("This isn't the time to use that!")
         
     @commands.command(name='preset', help='Allows for quick selection of roles. If nothing else is specified, lists all presets. Otherwise, deletes the current selection and adds the preset roles')
     async def preset(self, ctx, *args):

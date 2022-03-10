@@ -7,7 +7,7 @@ def sendMsg(msg):
     return msg
 
 def accessible_channel(message):
-    if (str(message.channel.id) == MY_CHANNEL):
+    if message.channel.id == MY_CHANNEL:
         return True
     else:
         return False

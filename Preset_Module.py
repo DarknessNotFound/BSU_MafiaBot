@@ -23,6 +23,6 @@ class Preset():
             string+= role.m_title + ", "
         return string
     
-preset1 = Preset("Vanilla", [Mafia(), Mafia()])
+preset1 = Preset("Vanilla", [Mafia, Mafia])
 
 m_presets = [preset1]

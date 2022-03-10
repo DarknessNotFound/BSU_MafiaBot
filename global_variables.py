@@ -5,4 +5,5 @@ Created on Tue Mar  1 18:56:50 2022
 @author: easto
 """
 
-MY_CHANNEL = '944403302383251486'
+# Channel ID number that limits commands to a certain channel
+MY_CHANNEL = 944403302383251486

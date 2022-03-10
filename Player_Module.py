@@ -14,3 +14,4 @@ class Player:
     
     def assign_role(self, role):
         self.m_role = role
+    
