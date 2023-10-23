@@ -4,10 +4,8 @@ Created on Sat Feb 26 13:18:41 2022
 
 @author: easto
 """
-
 import discord
 from discord.ext import commands
-from funcs import list_to_str
 
 class Admin(commands.Cog):
     
@@ -22,7 +20,7 @@ class Admin(commands.Cog):
         
     @commands.command(name='echo', help='Echos what the user just said')
     async def echo(self, ctx, *args):
-        await ctx.send(list_to_str(args))
+        await ctx.send(args.join(' '))
         
     @commands.command(name='members', help='Lists all members')
     async def members(self, ctx):
