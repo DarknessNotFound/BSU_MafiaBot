@@ -1,32 +1,36 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 26 13:18:41 2022
-
-@author: easto
-"""
+# AdminTest.py
 import discord
+#import Logging as Log
 from discord.ext import commands
 
-class Admin(commands.Cog):
-    
+FILE_NAME = "AdminTest"
+class AdminTest(commands.Cog):
     def __init__(self, client):
         self.client = client
-        
     # Commands
-    @commands.command(name='slideIntoDMs', help='Messages the user that typed the msg.')
-    async def slideIntoDMs(self, ctx):
-        msg = "I just slid into your dms"
-        await ctx.message.author.send(msg)
-        
-    @commands.command(name='echo', help='Echos what the user just said')
+    @commands.command(name='echo', help='Echos what user said.')
     async def echo(self, ctx, *args):
-        await ctx.send(args.join(' '))
-        
-    @commands.command(name='members', help='Lists all members')
-    async def members(self, ctx):
-        for member in ctx.guild.members:
-            await ctx.send(member.name)
+        """Echos what was inputed.
 
+        Args:
+            ctx (_type_): _description_
+        """        
+        try:
+            #Log.Command(ctx.author.id, "Echo", ' '.join(args))
+            await ctx.send(' '.join(args))
+        except Exception as ex:
+            #Log.Error(FILE_NAME, "echo", str(ex))
+            print(ex)
 
-def setup(client):
-    client.add_cog(Admin(client))
+    @commands.command(name='ThrowError', help='Function that throws an error, mostly for logging sake')
+    async def ThrowError(self, ctx, *args):
+        try:
+            #Log.Command(ctx.author.id, "ThrowError", ' '.join(args))
+            await ctx.send("Throwing a test error...")
+            raise Exception("This is a test error, ignore.")
+        except Exception as ex:
+            print(ex)
+            #Log.Error(FILE_NAME, "throwError", str(ex))
+
+async def setup(client):
+    await client.add_cog(AdminTest(client))

@@ -1,3 +1,6 @@
 .DS_store
 *.db
 .env
+Version1.0/__pycache__/*
+Version1.0/__pycache__/*
+__pycache__
